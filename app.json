@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "expo-video-test",
-    "slug": "expo-video-test",
+    "slug": "expo-video-demo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,17 +13,36 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tuulikkidev.expovideotest"
+    },
+    "expo": {
+      "plugins": [
+        [
+          "expo-video",
+          {
+            "supportsBackgroundPlayback": true,
+            "supportsPictureInPicture": true
+          }
+        ]
+      ]
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.tuulikkidev.expovideotest"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "64afcd7e-d6c7-4a95-a2b6-cead5fe09044"
+      }
+    },
+    "owner": "tuulikkidev"
   }
 }

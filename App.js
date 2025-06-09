@@ -1,20 +1,59 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEvent } from "expo";
+import { useVideoPlayer, VideoView } from "expo-video";
+import { StyleSheet, View, Button } from "react-native";
 
-export default function App() {
+const videoSource =
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
+export default function VideoScreen() {
+  const player = useVideoPlayer(videoSource, (player) => {
+    player.loop = true;
+    player.staysActiveInBackground = true;
+    player.showNowPlayingNotification = true;
+    player.play();
+  });
+
+  const { isPlaying } = useEvent(player, "playingChange", {
+    isPlaying: player.playing,
+  });
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={styles.contentContainer}>
+      <VideoView
+        style={styles.video}
+        player={player}
+        allowsFullscreen
+        allowsPictureInPicture
+      />
+      <View style={styles.controlsContainer}>
+        <Button
+          title={isPlaying ? "Pause" : "Play"}
+          onPress={() => {
+            if (isPlaying) {
+              player.pause();
+            } else {
+              player.play();
+            }
+          }}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 50,
+  },
+  video: {
+    width: 350,
+    height: 275,
+  },
+  controlsContainer: {
+    padding: 10,
   },
 });
