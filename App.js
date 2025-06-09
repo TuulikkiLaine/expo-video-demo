@@ -6,11 +6,13 @@ const videoSource =
   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 export default function VideoScreen() {
-  const player = useVideoPlayer(videoSource, (player) => {
-    player.loop = true;
-    player.staysActiveInBackground = true;
-    player.showNowPlayingNotification = true;
-    player.play();
+  const player = useVideoPlayer({
+    source: videoSource,
+    onReady: (player) => {
+      player.loop = true;
+      player.staysActiveInBackground = true;
+      player.showNowPlayingNotification = true;
+    },
   });
 
   const { isPlaying } = useEvent(player, "playingChange", {
